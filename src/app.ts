@@ -1,5 +1,5 @@
 import express from "express";
-import routesCategory from "./routes/cateories";
+import routesCategory from "./routes/categories";
 
 const app = express();
 
