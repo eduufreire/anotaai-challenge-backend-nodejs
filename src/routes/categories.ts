@@ -1,21 +1,20 @@
 import { Request, Response, Router } from "express";
-import CategoryController from "@/controllers/categoryController";
-import CategoryService from "@/services/categoryService";
-import prismaCategoryRepository from "@/repository/prismaCategoryRepository";
+import "reflect-metadata";
+import container from "@/config/container-dependencies";
 
 const routesCategory = Router();
-const categoryController = new CategoryController(new CategoryService(prismaCategoryRepository));
+const controller: any = container.get("CategoryController");
 
 routesCategory.post("/", (request: Request, response: Response) => {
-	categoryController.post(request, response);
+	controller.post(request, response);
 });
 
 routesCategory.patch("/:id", (request: Request, response: Response) => {
-	categoryController.update(request, response);
+	controller.update(request, response);
 });
 
 routesCategory.delete("/:id", (request: Request, response: Response) => {
-	categoryController.delete(request, response);
+	controller.delete(request, response);
 });
 
 export default routesCategory;

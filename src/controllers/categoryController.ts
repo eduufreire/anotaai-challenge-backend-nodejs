@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
 import { createCategorySchema, updateCategorySchema } from "@/validators/categoryValidator";
 import CategoryService from "@/services/categoryService";
+import { inject, injectable } from "inversify";
 
+@injectable()
 export default class CategoryController {
-	constructor(private categoryService: CategoryService) {}
+	constructor(
+		@inject("CategoryService")
+		private categoryService: CategoryService,
+	) {}
 
 	async post(request: Request, response: Response) {
 		try {

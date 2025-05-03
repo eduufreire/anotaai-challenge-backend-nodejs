@@ -1,8 +1,13 @@
 import { CategoryDTO } from "@/dtos/categoryDTO";
 import { CategoryRepository, CreateCategoryDTO, UpdateCategoryDTO } from "../interfaces/categories";
+import { injectable, inject } from "inversify";
 
+@injectable()
 export default class CategoryService {
-	constructor(private repository: CategoryRepository) {}
+	constructor(
+		@inject("CategoryRepository")
+		private repository: CategoryRepository,
+	) {}
 
 	async create(rawData: CreateCategoryDTO): Promise<any> {
 		try {

@@ -1,7 +1,7 @@
 import { prismaClient } from "../config/prisma";
 import { Category, CategoryRepository, UpdateCategoryDTO } from "../interfaces/categories";
 
-class PrismaCategoryRepository implements CategoryRepository {
+export default class PrismaCategoryRepository implements CategoryRepository {
 	async save(rawDate: Omit<Category, "id">): Promise<Category> {
 		return await prismaClient.category.create({
 			data: {
@@ -46,5 +46,3 @@ class PrismaCategoryRepository implements CategoryRepository {
 		});
 	}
 }
-
-export default new PrismaCategoryRepository();
