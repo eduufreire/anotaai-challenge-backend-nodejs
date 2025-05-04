@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
-import { createCategorySchema, updateCategorySchema } from "@/validators/categoryValidator";
+import { NextFunction, Request, Response } from "express";
+import { createCategorySchema, updateCategorySchema } from "@/utils/validators/categoryValidator";
 import CategoryService from "@/services/categoryService";
 import { inject, injectable } from "inversify";
+import { ZodError } from "@/utils/exceptions/customException";
 
 @injectable()
 export default class CategoryController {
@@ -11,51 +12,34 @@ export default class CategoryController {
 	) {}
 
 	async post(request: Request, response: Response) {
-		try {
-			const schema = createCategorySchema.safeParse(request.body);
+		const schema = createCategorySchema.safeParse(request.body);
 
-			if (!schema.success) {
-				console.log(schema.error);
-				throw new Error("Error no zod");
-			}
-
-			const result = await this.categoryService.create(schema.data);
-
-			return response.status(201).send(result);
-		} catch (error) {
-			console.log(error);
-			return response.status(500).send();
+		if (!schema.success) {
+			throw new ZodError("Invalid fields sending in the body", schema.error.issues);
 		}
+
+		const result = await this.categoryService.create(schema.data);
+
+		return response.status(201).send(result);
 	}
 
 	async update(request: Request, response: Response) {
-		try {
-			const { id } = request.params;
-			const schema = updateCategorySchema.safeParse(request.body);
+		const { id } = request.params;
+		const schema = updateCategorySchema.safeParse(request.body);
 
-			if (!schema.success) {
-				console.log(schema.error);
-				throw new Error("Error no zod");
-			}
-
-			const result = await this.categoryService.update(id, schema.data);
-			return response.status(202).send(result);
-		} catch (error) {
-			console.log(error);
-			return response.status(500).send();
+		if (!schema.success) {
+			throw new ZodError("Invalid fields sending in the body", schema.error.issues);
 		}
+
+		const result = await this.categoryService.update(id, schema.data);
+		return response.status(202).send(result);
 	}
 
 	async delete(request: Request, response: Response) {
-		try {
-			const { id } = request.params;
+		const { id } = request.params;
 
-			await this.categoryService.delete(id);
+		await this.categoryService.delete(id);
 
-			return response.status(202).send();
-		} catch (error) {
-			console.log(error);
-			return response.status(500).send();
-		}
+		return response.status(202).send();
 	}
 }

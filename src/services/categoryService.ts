@@ -1,6 +1,7 @@
-import { CategoryDTO } from "@/dtos/categoryDTO";
+import { CategoryDTO } from "@/utils/dtos/categoryDTO";
 import { CategoryRepository, CreateCategoryDTO, UpdateCategoryDTO } from "../interfaces/categories";
 import { injectable, inject } from "inversify";
+import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
 
 @injectable()
 export default class CategoryService {
@@ -10,52 +11,37 @@ export default class CategoryService {
 	) {}
 
 	async create(rawData: CreateCategoryDTO): Promise<any> {
-		try {
-			const categoryExists = await this.repository.finbByTitleAndOwnerId(
-				rawData.title,
-				rawData.ownerId,
-			);
+		const categoryExists = await this.repository.finbByTitleAndOwnerId(
+			rawData.title,
+			rawData.ownerId,
+		);
 
-			if (categoryExists) {
-				throw new Error("Categoria Já Existe");
-			}
-
-			const savedCategory = await this.repository.save(rawData);
-			return CategoryDTO.parse(savedCategory);
-		} catch (error) {
-			console.log(error);
-			throw error;
+		if (categoryExists) {
+			throw new ConflictError("Category already exists");
 		}
+
+		const savedCategory = await this.repository.save(rawData);
+		return CategoryDTO.parse(savedCategory);
 	}
 
 	async update(id: string, fieldsUpdate: UpdateCategoryDTO) {
-		try {
-			const categoryExists = await this.repository.findById(id);
+		const categoryExists = await this.repository.findById(id);
 
-			if (!categoryExists) {
-				throw new Error("Categoria não encontrada");
-			}
-
-			const updatedCategory = await this.repository.update(id, fieldsUpdate);
-			return CategoryDTO.parse(updatedCategory);
-		} catch (error) {
-			console.log(error);
-			throw error;
+		if (!categoryExists) {
+			throw new NotFoundError("Category not found");
 		}
+
+		const updatedCategory = await this.repository.update(id, fieldsUpdate);
+		return CategoryDTO.parse(updatedCategory);
 	}
 
 	async delete(id: string) {
-		try {
-			const categoryExists = await this.repository.findById(id);
+		const categoryExists = await this.repository.findById(id);
 
-			if (!categoryExists) {
-				throw new Error("Categoria não encontrada");
-			}
-
-			return await this.repository.delete(id);
-		} catch (error) {
-			console.log(error);
-			throw error;
+		if (!categoryExists) {
+			throw new NotFoundError("Category not found");
 		}
+
+		return await this.repository.delete(id);
 	}
 }
