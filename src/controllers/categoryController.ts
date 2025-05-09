@@ -1,8 +1,9 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { createCategorySchema, updateCategorySchema } from "@/utils/validators/categoryValidator";
 import CategoryService from "@/services/categoryService";
 import { inject, injectable } from "inversify";
 import { ZodError } from "@/utils/exceptions/customException";
+import { logger } from "@/config/logger";
 
 @injectable()
 export default class CategoryController {
@@ -13,7 +14,6 @@ export default class CategoryController {
 
 	async post(request: Request, response: Response) {
 		const schema = createCategorySchema.safeParse(request.body);
-
 		if (!schema.success) {
 			throw new ZodError("Invalid fields sending in the body", schema.error.issues);
 		}

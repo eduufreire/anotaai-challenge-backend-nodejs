@@ -1,0 +1,8 @@
+undefined [info] category service: teste
+2025-05-04T23:34:05.249Z [INFO] category service: teste
+{
+  message: 'teste',
+  label: 'category service',
+  level: 'info',
+  timestamp: '2025-05-04T23:34:18.432Z'
+}
