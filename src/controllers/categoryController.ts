@@ -20,7 +20,7 @@ export default class CategoryController {
 
 		const result = await this.categoryService.create(schema.data);
 
-		return response.status(201).send(result);
+		return response.status(201).json(result);
 	}
 
 	async update(request: Request, response: Response) {
@@ -32,7 +32,7 @@ export default class CategoryController {
 		}
 
 		const result = await this.categoryService.update(id, schema.data);
-		return response.status(202).send(result);
+		return response.status(202).json(result);
 	}
 
 	async delete(request: Request, response: Response) {
@@ -40,6 +40,6 @@ export default class CategoryController {
 
 		await this.categoryService.delete(id);
 
-		return response.status(202).send();
+		return response.status(202).json();
 	}
 }

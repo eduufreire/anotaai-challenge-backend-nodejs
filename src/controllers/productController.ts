@@ -34,4 +34,11 @@ export default class ProductController {
 		const result = await this.service.update(id, schema.data);
 		return response.status(202).json(result);
 	}
+
+	async delete(request: Request, response: Response) {
+        console.log(request.params)
+		const { id } = request.params;
+		await this.service.delete(id);
+		return response.status(202).json();
+	}
 }

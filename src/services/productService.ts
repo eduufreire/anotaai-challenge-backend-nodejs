@@ -1,7 +1,7 @@
 import { CreateProductDTO, ProductRepository, UpdateProductDTO } from "@/interfaces/products";
 import CategoryService from "@/services/categoryService";
 import ProductMapper from "@/utils/dtos/productDTO";
-import { ConflictError } from "@/utils/exceptions/customException";
+import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
 import { inject, injectable } from "inversify";
 
 @injectable()
@@ -41,5 +41,14 @@ export default class ProductService {
 
 		const result = await this.repository.update(id, fieldsUpdate);
 		return ProductMapper.parseToDTO(result);
+	}
+
+	async delete(id: string) {
+		console.log(id)
+		const productExists = this.repository.findById(id);
+		if (!productExists) {
+			throw new NotFoundError("Product not found");
+		}
+		return await this.repository.delete(id);
 	}
 }

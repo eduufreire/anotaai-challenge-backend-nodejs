@@ -36,4 +36,12 @@ export default class PrismaProductRepository implements ProductRepository {
 			where: { id },
 		});
 	}
+
+	async delete(id: string): Promise<Product> {
+		return await prismaClient.product.delete({
+			where: {
+				id,
+			},
+		});
+	}
 }

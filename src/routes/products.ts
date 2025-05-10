@@ -12,6 +12,9 @@ routesProducts.patch("/:id", (request: Request, response: Response, next: NextFu
 	Promise.resolve(controller.update(request, response)).catch((e) => next(e));
 });
 
-routesProducts.delete(":/id", (request: Request, response: Response) => {});
+routesProducts.delete("/:id", (request: Request, response: Response, next: NextFunction) => {
+	console.log(request.params);
+	Promise.resolve(controller.delete(request, response)).catch((e) => next(e));
+});
 
 export default routesProducts;
