@@ -1,4 +1,4 @@
-import { Category, ShowCategoryDTO } from "../interfaces/categories";
+import { Category, ShowCategoryDTO } from "@/interfaces/categories";
 
 export class CategoryDTO {
 	private constructor() {}
