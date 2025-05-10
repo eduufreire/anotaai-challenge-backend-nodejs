@@ -24,7 +24,7 @@ export interface ShowCategoryDTO {
 }
 
 export interface CategoryRepository {
-	save(rawDate: Omit<Category, "id">): Promise<Category>;
+	save(rawData: Omit<Category, "id">): Promise<Category>;
 	update(id: string, data: UpdateCategoryDTO): Promise<Category>;
 	delete(id: string): Promise<Category>;
 	findById(id: string): Promise<Category | null>;

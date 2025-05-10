@@ -1,8 +1,3 @@
-undefined [info] category service: teste
-2025-05-04T23:34:05.249Z [INFO] category service: teste
-{
-  message: 'teste',
-  label: 'category service',
-  level: 'info',
-  timestamp: '2025-05-04T23:34:18.432Z'
-}
+2025-05-10T00:12:07.527Z [ERROR] ErrorHandler: {"correlationId": c1954869-fb6f-416a-8271-4c849b8ae223, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}
+2025-05-10T00:14:49.228Z [ERROR] ErrorHandler: {"correlationId": d9f5be51-9c5e-49e6-b973-97faf6e098f7, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-10T00:21:17.765Z [ERROR] ErrorHandler: {"correlationId": 4ebb952a-4d8c-4ecf-9ede-97cbe0cf1acd, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}

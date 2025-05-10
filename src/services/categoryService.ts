@@ -1,5 +1,10 @@
 import { CategoryDTO } from "@/utils/dtos/categoryDTO";
-import { CategoryRepository, CreateCategoryDTO, UpdateCategoryDTO } from "../interfaces/categories";
+import {
+	Category,
+	CategoryRepository,
+	CreateCategoryDTO,
+	UpdateCategoryDTO,
+} from "../interfaces/categories";
 import { injectable, inject } from "inversify";
 import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
 
@@ -22,6 +27,16 @@ export default class CategoryService {
 
 		const savedCategory = await this.repository.save(rawData);
 		return CategoryDTO.parse(savedCategory);
+	}
+
+	async findById(id: string): Promise<Category> {
+		const categoryExists = await this.repository.findById(id);
+
+		if (!categoryExists) {
+			throw new NotFoundError("Category not found");
+		}
+
+		return categoryExists;
 	}
 
 	async update(id: string, fieldsUpdate: UpdateCategoryDTO) {
