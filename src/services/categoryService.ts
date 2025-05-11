@@ -31,7 +31,6 @@ export default class CategoryService {
 
 	async findById(id: string): Promise<Category> {
 		const categoryExists = await this.repository.findById(id);
-
 		if (!categoryExists) {
 			throw new NotFoundError("Category not found");
 		}

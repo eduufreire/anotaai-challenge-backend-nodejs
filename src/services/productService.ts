@@ -44,8 +44,7 @@ export default class ProductService {
 	}
 
 	async delete(id: string) {
-		console.log(id)
-		const productExists = this.repository.findById(id);
+		const productExists = await this.repository.findById(id);
 		if (!productExists) {
 			throw new NotFoundError("Product not found");
 		}

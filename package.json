@@ -4,7 +4,7 @@
   "description": "Backend Analyst Candidate Test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "dev": "tsx --watch ./src/server.ts"
   },
   "author": "Eduardo Freire",

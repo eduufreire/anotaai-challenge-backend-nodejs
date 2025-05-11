@@ -1,6 +1,8 @@
 import { CategoryRepository } from "@/interfaces/categories";
 import CategoryService from "@/services/categoryService";
+import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
 import { expect, describe, it } from "@jest/globals";
+import e from "express";
 import { mock } from "node:test";
 
 const mockCategoryRepository: jest.Mocked<CategoryRepository> = {
@@ -55,7 +57,7 @@ describe("Suit tests - Category Service", () => {
 					description: "Categoria teste com vários itens",
 					ownerId: "123-456-789",
 				}),
-			).rejects.toThrow();
+			).rejects.toThrow(ConflictError);
 			expect(mockCategoryRepository.finbByTitleAndOwnerId).toHaveBeenCalled();
 		});
 	});
@@ -91,7 +93,7 @@ describe("Suit tests - Category Service", () => {
 			const service = new CategoryService(mockCategoryRepository);
 			await expect(
 				service.update("mock-id", { title: "atualizar titulo" }),
-			).rejects.toThrow();
+			).rejects.toThrow(NotFoundError);
 		});
 	});
 
@@ -111,7 +113,24 @@ describe("Suit tests - Category Service", () => {
 			mockCategoryRepository.findById.mockResolvedValue(null);
 			const service = new CategoryService(mockCategoryRepository);
 
-			await expect(service.delete("mock-id")).rejects.toThrow();
+			await expect(service.delete("mock-id")).rejects.toThrow(NotFoundError);
+		});
+	});
+
+	describe("Find catategory by id", () => {
+		it("Should return success when find existing category by id", async () => {
+			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue(mockCategory);
+			const categoryService = new CategoryService(mockCategoryRepository);
+			const result = await categoryService.findById("mock-id");
+			expect(result).toEqual(mockCategory);
+			expect(mockCategoryRepository.findById).toHaveBeenCalledTimes(1);
+		});
+
+		it("Should throw NotFoundError when didn't find category by id", async () => {
+			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue(null);
+			const categoryService = new CategoryService(mockCategoryRepository);
+			await expect(categoryService.findById("mock-id")).rejects.toThrow(NotFoundError);
+			expect(mockCategoryRepository.findById).toHaveBeenCalledTimes(1);
 		});
 	});
 });
