@@ -5,6 +5,7 @@ import CategoryService from "@/services/categoryService";
 import { CategoryRepository } from "@/interfaces/categories";
 import { mock } from "node:test";
 import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
+import { MessagingService } from "@/services/sqsService";
 
 const mockProductRepository: jest.Mocked<ProductRepository> = {
 	save: jest.fn(),
@@ -20,6 +21,10 @@ const mockCategoryRepository: jest.Mocked<CategoryRepository> = {
 	findById: jest.fn(),
 	update: jest.fn(),
 	delete: jest.fn(),
+};
+
+const messagingServiceMock: jest.Mocked<MessagingService> = {
+	sendMessage: jest.fn(),
 };
 
 const mockCategory = {
@@ -48,14 +53,21 @@ describe("Suit testes - Product Service", () => {
 
 	describe("Save new product", () => {
 		it("Should return success when creating a new product", async () => {
-			const categoryService = new CategoryService(mockCategoryRepository);
+			const categoryService = new CategoryService(
+				mockCategoryRepository,
+				messagingServiceMock,
+			);
 			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue(mockCategory);
 			jest.spyOn(mockProductRepository, "finbByTitleAndCategoryId").mockResolvedValue(
 				null,
 			);
 			jest.spyOn(mockProductRepository, "save").mockResolvedValue(mockProduct);
 
-			const productService = new ProductService(mockProductRepository, categoryService);
+			const productService = new ProductService(
+				mockProductRepository,
+				categoryService,
+				messagingServiceMock,
+			);
 			const result = await productService.create({ ...mockProduct });
 
 			expect(result).toEqual(mockProduct);
@@ -67,24 +79,38 @@ describe("Suit testes - Product Service", () => {
 		});
 
 		it("Should throw NotFoundError if categoryId not exists", async () => {
-			const categoryService = new CategoryService(mockCategoryRepository);
+			const categoryService = new CategoryService(
+				mockCategoryRepository,
+				messagingServiceMock,
+			);
 			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue(null);
 
-			const productService = new ProductService(mockProductRepository, categoryService);
+			const productService = new ProductService(
+				mockProductRepository,
+				categoryService,
+				messagingServiceMock,
+			);
 			await expect(productService.create({ ...mockProduct })).rejects.toThrow(
 				NotFoundError,
 			);
 		});
 
 		it("Should throw ConflictError if product already exists", async () => {
-			const categoryService = new CategoryService(mockCategoryRepository);
+			const categoryService = new CategoryService(
+				mockCategoryRepository,
+				messagingServiceMock,
+			);
 			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue(mockCategory);
 
 			jest.spyOn(mockProductRepository, "finbByTitleAndCategoryId").mockResolvedValue(
 				mockProduct,
 			);
 
-			const productService = new ProductService(mockProductRepository, categoryService);
+			const productService = new ProductService(
+				mockProductRepository,
+				categoryService,
+				messagingServiceMock,
+			);
 
 			await expect(productService.create({ ...mockProduct })).rejects.toThrow(
 				ConflictError,
@@ -112,11 +138,11 @@ describe("Suit testes - Product Service", () => {
 				...input,
 			};
 
-			const categoryService = new CategoryService(mockCategoryRepository);
+			const categoryService = new CategoryService(mockCategoryRepository, messagingServiceMock);
 			jest.spyOn(mockProductRepository, "findById").mockResolvedValue(mockProduct);
 			jest.spyOn(mockProductRepository, "update").mockResolvedValue(mockProductUpdated);
 
-			const productService = new ProductService(mockProductRepository, categoryService);
+			const productService = new ProductService(mockProductRepository, categoryService, messagingServiceMock);
 
 			const result = await productService.update("mock-product-id", input);
 			expect(result).toEqual(mockProductUpdated);
@@ -124,7 +150,7 @@ describe("Suit testes - Product Service", () => {
 		});
 
 		it("Should return success when updating category of a product", async () => {
-			const categoryService = new CategoryService(mockCategoryRepository);
+			const categoryService = new CategoryService(mockCategoryRepository, messagingServiceMock);
 			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue({
 				...mockCategory,
 				id: "new-category-id",
@@ -135,7 +161,7 @@ describe("Suit testes - Product Service", () => {
 				categoryId: "new-category-id",
 			});
 
-			const productService = new ProductService(mockProductRepository, categoryService);
+			const productService = new ProductService(mockProductRepository, categoryService, messagingServiceMock);
 			const result = await productService.update("mock-product-id", {
 				categoryId: "new-category-id",
 			});
@@ -145,10 +171,10 @@ describe("Suit testes - Product Service", () => {
 		});
 
 		it("Should throw NotFoundError when not found category by id", async () => {
-			const categoryService = new CategoryService(mockCategoryRepository);
+			const categoryService = new CategoryService(mockCategoryRepository, messagingServiceMock);
 			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue(null);
 
-			const productService = new ProductService(mockProductRepository, categoryService);
+			const productService = new ProductService(mockProductRepository, categoryService, messagingServiceMock);
 			await expect(
 				productService.update("mock-product-id", { ...mockProduct }),
 			).rejects.toThrow(NotFoundError);
@@ -159,8 +185,15 @@ describe("Suit testes - Product Service", () => {
 	describe("Delete product", () => {
 		it("Should throw NotFoundError if not found product by id", async () => {
 			jest.spyOn(mockProductRepository, "findById").mockResolvedValue(null);
-			const categoryService = new CategoryService(mockCategoryRepository);
-			const productService = new ProductService(mockProductRepository, categoryService);
+			const categoryService = new CategoryService(
+				mockCategoryRepository,
+				messagingServiceMock,
+			);
+			const productService = new ProductService(
+				mockProductRepository,
+				categoryService,
+				messagingServiceMock,
+			);
 			await expect(productService.delete("mock-product-id")).rejects.toThrow(
 				NotFoundError,
 			);
@@ -169,9 +202,16 @@ describe("Suit testes - Product Service", () => {
 		it("Should return success when deleting product", async () => {
 			jest.spyOn(mockProductRepository, "findById").mockResolvedValue(mockProduct);
 			jest.spyOn(mockProductRepository, "delete").mockResolvedValue(mockProduct);
-			const categoryService = new CategoryService(mockCategoryRepository);
+			const categoryService = new CategoryService(
+				mockCategoryRepository,
+				messagingServiceMock,
+			);
 
-			const productService = new ProductService(mockProductRepository, categoryService);
+			const productService = new ProductService(
+				mockProductRepository,
+				categoryService,
+				messagingServiceMock,
+			);
 			const result = await productService.delete("mock-product-id");
 			expect(result).toEqual(mockProduct);
 			expect(mockProductRepository.findById).toHaveBeenCalledWith("mock-product-id");

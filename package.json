@@ -20,8 +20,10 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@aws-sdk/client-sqs": "^3.806.0",
     "@prisma/client": "^6.6.0",
     "crypto": "^1.0.1",
+    "dotenv": "^16.5.0",
     "es6-shim": "^0.35.8",
     "express": "^4.21.2",
     "inversify": "^7.5.1",

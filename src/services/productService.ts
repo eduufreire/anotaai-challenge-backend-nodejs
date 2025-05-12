@@ -3,7 +3,8 @@ import CategoryService from "@/services/categoryService";
 import ProductMapper from "@/utils/dtos/productDTO";
 import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
 import { inject, injectable } from "inversify";
-
+import { MessagingService } from "./sqsService";
+import "dotenv/config";
 @injectable()
 export default class ProductService {
 	constructor(
@@ -11,6 +12,8 @@ export default class ProductService {
 		private repository: ProductRepository,
 		@inject("CategoryService")
 		private categoryService: CategoryService,
+		@inject("MessagingService")
+		private messagingService: MessagingService,
 	) {}
 
 	async create(rawData: CreateProductDTO) {
@@ -25,6 +28,10 @@ export default class ProductService {
 			throw new ConflictError("Product already exists");
 		}
 		const result = await this.repository.save(rawData);
+
+		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
+			owner: "123",
+		});
 		return ProductMapper.parseToDTO(result);
 	}
 
@@ -40,6 +47,11 @@ export default class ProductService {
 		}
 
 		const result = await this.repository.update(id, fieldsUpdate);
+
+		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
+			owner: "123",
+		});
+
 		return ProductMapper.parseToDTO(result);
 	}
 

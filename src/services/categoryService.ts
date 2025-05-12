@@ -7,12 +7,15 @@ import {
 } from "../interfaces/categories";
 import { injectable, inject } from "inversify";
 import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
-
+import { MessagingService } from "./sqsService";
+import "dotenv/config";
 @injectable()
 export default class CategoryService {
 	constructor(
 		@inject("CategoryRepository")
 		private repository: CategoryRepository,
+		@inject("MessagingService")
+		private messagingService: MessagingService,
 	) {}
 
 	async create(rawData: CreateCategoryDTO): Promise<any> {
@@ -26,6 +29,11 @@ export default class CategoryService {
 		}
 
 		const savedCategory = await this.repository.save(rawData);
+
+		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
+			owner: savedCategory.ownerId,
+		});
+
 		return CategoryDTO.parse(savedCategory);
 	}
 
@@ -46,6 +54,11 @@ export default class CategoryService {
 		}
 
 		const updatedCategory = await this.repository.update(id, fieldsUpdate);
+
+		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
+			owner: updatedCategory.ownerId,
+		});
+
 		return CategoryDTO.parse(updatedCategory);
 	}
 

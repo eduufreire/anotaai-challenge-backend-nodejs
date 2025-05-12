@@ -1,2 +1,36 @@
 node_modules
 generated/prisma/
+coverage
+volume
+
+# Arquivos de estado
+*.tfstate
+*.tfstate.*
+
+# Backup do plano de execução
+*.tfplan
+
+# Logs e crash logs
+crash.log
+crash.*
+
+# Diretório de cache do Terraform
+.terraform/
+
+# Arquivos de override (ex: terraform.tfvars.local ou similares)
+*.tfvars
+*.tfvars.json
+
+# Arquivos de override locais
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Credenciais/senhas temporárias (dependendo de ferramentas usadas)
+.terraformrc
+terraform.rc
+
+# IDEs/editor files (opcional)
+.vscode/
+.idea/
