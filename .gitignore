@@ -34,3 +34,5 @@ terraform.rc
 # IDEs/editor files (opcional)
 .vscode/
 .idea/
+
+*.log
