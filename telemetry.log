@@ -4,3 +4,24 @@
 2025-05-10T02:46:23.344Z [ERROR] ErrorHandler: {"correlationId": 1d0ff723-eb92-4fe0-a400-ccb80ee31d13, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}
 2025-05-10T02:49:34.836Z [ERROR] ErrorHandler: {"correlationId": 067341e2-8dc4-4372-b5ba-f7cb9c15a8ec, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
 2025-05-10T02:49:44.563Z [ERROR] ErrorHandler: {"correlationId": 0393a21e-839b-4a2c-a236-d08c58212ef6, data: {"statusCode":404,"name":"NotFoundError","message":"Category not found","details":[]}}
+2025-05-12T20:15:47.970Z [ERROR] ErrorHandler: {"correlationId": 303242df-f08d-458c-a658-84470ae08483, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-13T22:41:10.910Z [ERROR] ErrorHandler: {"correlationId": 2e1139e0-913b-423f-b899-3f02b8abed37, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T05:12:39.413Z [ERROR] ErrorHandler: {"correlationId": 497d456d-97f0-4d7d-b111-58f3f5bb3f0c, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T05:12:42.960Z [ERROR] ErrorHandler: {"correlationId": d345eae8-24f4-4783-bc75-6d494552f0bd, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T05:13:15.786Z [ERROR] ErrorHandler: {"correlationId": a467a975-0931-482b-8a0d-27a89ce13659, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T05:15:37.496Z [ERROR] ErrorHandler: {"correlationId": 60f8db72-de26-4dd4-8514-d583fdc08b06, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T05:19:31.400Z [ERROR] ErrorHandler: {"correlationId": 1bbbf71d-1999-4378-87df-6f10c5226a3d, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T15:28:37.599Z [ERROR] ErrorHandler: {"correlationId": 490fc063-e19a-4d14-a487-9bd8720a675a, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T15:28:42.723Z [ERROR] ErrorHandler: {"correlationId": 719443fe-1f6b-4679-a8ba-e9c50a4392dd, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T15:29:32.005Z [ERROR] ErrorHandler: {"correlationId": 69b05083-443d-4832-9d68-001b3b2ce277, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T15:48:58.561Z [ERROR] ErrorHandler: {"correlationId": ba8211c6-0454-4b87-bd39-f87757d6439c, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-18T15:51:53.425Z [ERROR] ErrorHandler: {"correlationId": ef7e2d24-ac59-41f5-a577-e2e8736d969b, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-18T15:57:26.339Z [ERROR] ErrorHandler: {"correlationId": 4b04bb35-9d68-4e7a-b1c8-27d4f0007455, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T15:57:33.348Z [ERROR] ErrorHandler: {"correlationId": f7bd09c1-eb15-4598-a1f3-d69494806283, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T15:57:54.716Z [ERROR] ErrorHandler: {"correlationId": bff43db8-e59a-43cb-9e16-b1e04174ea64, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T15:58:36.996Z [ERROR] ErrorHandler: {"correlationId": bfb034bf-b104-4c67-ac55-225d5d9a16ca, data: {"statusCode":500,"name":"DatabaseError","message":"Internal Server Error","details":[]}}
+2025-05-18T16:19:35.989Z [ERROR] ErrorHandler: {"correlationId": 55036b30-e703-4365-8359-fa9701aa4b47, data: {"statusCode":400,"name":"SyntaxError","message":"Expected ',' or '}' after property value in JSON at position 19","details":[]}}
+2025-05-18T16:26:59.806Z [ERROR] ErrorHandler: {"correlationId": 7dc357c7-050d-4261-9c68-b3c36634f3a2, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}
+2025-05-18T16:27:30.050Z [ERROR] ErrorHandler: {"correlationId": 46b98be8-193c-447d-b215-7bd45f8abe87, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}
+2025-05-18T16:43:31.793Z [ERROR] ErrorHandler: {"correlationId": 43e88e95-b58d-4276-aa1a-68f10be12a8a, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}
+2025-05-18T16:49:09.034Z [ERROR] ErrorHandler: {"correlationId": c267c607-f115-45c4-807e-856d9ec27510, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}

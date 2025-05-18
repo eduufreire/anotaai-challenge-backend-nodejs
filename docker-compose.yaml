@@ -1,12 +1,35 @@
+name: "catalog-challenge-anotaai"
 services:
-    localstack:
-      container_name: "${LOCALSTACK_DOCKERNAME:-localstack-main}"
-      image: localstack/localstack
-      ports:
-        - "127.0.0.1:4566:4566"
-        - "127.0.0.1:4510-4559:4510-4559"
-      environment:
-        - DEBG=${DEBUG:-0}
-      volumes:
-        - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
-        - "/var/run/docker.sock:/var/run/docker.sock"
+  localstack:
+    container_name: "${LOCALSTACK_DOCKERNAME:-localstack-main-test}"
+    image: localstack/localstack
+    ports:
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4510-4559:4510-4559"
+    environment:
+      - DEBG=${DEBUG:-0}
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  mongo:
+    container_name: "catalog-database-anotaai"
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: urubu100
+
+  mongo-express:
+    container_name: "mongo-dashboard"
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: urubu100
+      ME_CONFIG_MONGODB_URL: mongodb://root:urubu100@mongo:27017/
+      ME_CONFIG_BASICAUTH: false
+  

@@ -61,3 +61,8 @@ We will assess the following aspects of your solution:
 - Documentation quality.
 - Code organization, module separation, readability, and comments.
 - Commit history.
+
+
+- mddleware de autenticacao
+- configurar docker de mongo
+- dockers para a api, consumer, terraform e mongo

@@ -53,7 +53,10 @@ export default class CategoryService {
 			throw new NotFoundError("Category not found");
 		}
 
-		const updatedCategory = await this.repository.update(id, fieldsUpdate);
+		const result = await this.repository.update(id, fieldsUpdate);
+		if (!result) throw new NotFoundError("Category not found");
+
+		const updatedCategory = result;
 
 		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
 			owner: updatedCategory.ownerId,

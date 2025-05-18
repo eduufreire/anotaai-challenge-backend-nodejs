@@ -30,7 +30,7 @@ export default class ProductService {
 		const result = await this.repository.save(rawData);
 
 		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
-			owner: "123",
+			owner: categoryExists.ownerId,
 		});
 		return ProductMapper.parseToDTO(result);
 	}
@@ -47,9 +47,10 @@ export default class ProductService {
 		}
 
 		const result = await this.repository.update(id, fieldsUpdate);
+		if (!result) throw new ConflictError("Product not exists");
 
 		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
-			owner: "123",
+			owner: "12345",
 		});
 
 		return ProductMapper.parseToDTO(result);
