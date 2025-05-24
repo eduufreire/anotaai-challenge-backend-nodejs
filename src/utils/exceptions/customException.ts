@@ -58,3 +58,27 @@ export class DatabaseError extends Error {
 		this.details = [];
 	}
 }
+
+export class InvalidTokenError extends Error {
+	public readonly statusCode: number;
+	public readonly name: string;
+	public readonly details: any;
+	constructor(message: string) {
+		super(message);
+		this.name = "AuthenticationError";
+		this.statusCode = 403;
+		this.details = [];
+	}
+}
+
+export class InvalidCredentialsError extends Error {
+	public readonly statusCode: number;
+	public readonly name: string;
+	public readonly details: any;
+	constructor(message: string) {
+		super(message);
+		this.name = "AuthenticationError";
+		this.statusCode = 401;
+		this.details = [];
+	}
+}

@@ -25,3 +25,24 @@
 2025-05-18T16:27:30.050Z [ERROR] ErrorHandler: {"correlationId": 46b98be8-193c-447d-b215-7bd45f8abe87, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}
 2025-05-18T16:43:31.793Z [ERROR] ErrorHandler: {"correlationId": 43e88e95-b58d-4276-aa1a-68f10be12a8a, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}
 2025-05-18T16:49:09.034Z [ERROR] ErrorHandler: {"correlationId": c267c607-f115-45c4-807e-856d9ec27510, data: {"statusCode":409,"name":"ConflictError","message":"Product already exists","details":[]}}
+2025-05-20T02:10:15.053Z [ERROR] ErrorHandler: {"correlationId": 309c41f6-fa9f-41cd-8121-211ec2dd6f80, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-24T02:33:27.256Z [ERROR] ErrorHandler: {"correlationId": 034e7534-715c-41b4-ad10-a2908f53666a, data: {"statusCode":500,"name":"Error","message":"token invalido","details":[]}}
+2025-05-24T02:45:19.094Z [ERROR] ErrorHandler: {"correlationId": dccd34ae-eff8-4dad-ae27-60b63e7d27e3, data: {"statusCode":403,"name":"AuthenticationError","message":"Invalid token","details":[]}}
+2025-05-24T02:46:11.042Z [ERROR] ErrorHandler: {"correlationId": 66245ee8-2899-4ee5-8dc2-77a5bc56423c, data: {"statusCode":401,"name":"AuthenticationError","message":"Credentials not valid","details":[]}}
+2025-05-24T03:00:56.519Z [ERROR] ErrorHandler: {"correlationId": bdb6a502-1f74-4897-8812-e506f09dfb68, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-24T03:08:14.204Z [ERROR] AuthService: {"correlationId": 646fe0dd-b196-43a9-9198-e7a27a49d7a1, data: "jwt expired"}
+2025-05-24T03:08:14.207Z [ERROR] ErrorHandler: {"correlationId": 5036a4d8-7fc0-44f3-8c05-e4212da83a2d, data: {"statusCode":403,"name":"AuthenticationError","message":"Invalid token","details":[]}}
+2025-05-24T03:14:54.338Z [ERROR] AuthService: {"correlationId": 57fad55f-005d-4426-a82b-fdb205c131f3, data: "jwt expired"}
+2025-05-24T03:14:54.341Z [ERROR] ErrorHandler: {"correlationId": ac795184-ede4-49a7-bdeb-3887cf6410a1, data: {"statusCode":403,"name":"AuthenticationError","message":"Invalid token","details":[]}}
+2025-05-24T03:15:06.448Z [ERROR] ErrorHandler: {"correlationId": 69b88c30-768c-43a5-888d-7eda9cd0e917, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-24T03:15:29.605Z [ERROR] ErrorHandler: {"correlationId": 383cc19f-2e13-4810-a3de-3595b05ccc28, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-24T03:18:31.453Z [ERROR] ErrorHandler: {"correlationId": 03401e7c-b443-49b6-9249-f2cf5386314d, data: {"statusCode":403,"name":"AuthenticationError","message":"Invalid token","details":[]}}
+2025-05-24T03:21:49.863Z [ERROR] AuthService: {"correlationId": 93ccada1-10b4-44f2-a05b-8f31dab133aa, data: "jwt expired"}
+2025-05-24T03:21:49.864Z [ERROR] ErrorHandler: {"correlationId": 51bb102e-952f-4ce3-8c1b-975acfa6c52c, data: {"statusCode":403,"name":"AuthenticationError","message":"Invalid token","details":[]}}
+2025-05-24T03:22:04.424Z [ERROR] ErrorHandler: {"correlationId": 14c248f7-420c-4866-96d4-5fc05a982461, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-24T03:22:13.178Z [ERROR] ErrorHandler: {"correlationId": 862d41b5-7c05-4512-93f0-2a18b93cb219, data: {"statusCode":409,"name":"ConflictError","message":"Category already exists","details":[]}}
+2025-05-24T03:23:38.350Z [ERROR] ErrorHandler: {"correlationId": 8bfd2d2d-9f41-4112-8a2c-66f366ea7041, data: {"statusCode":404,"name":"NotFoundError","message":"Category not found","details":[]}}
+2025-05-24T03:24:59.350Z [ERROR] ErrorHandler: {"correlationId": 0b0c667c-7319-46e7-afdc-413fac7bb719, data: {"statusCode":403,"name":"AuthenticationError","message":"Invalid token","details":[]}}
+2025-05-24T03:44:01.840Z [ERROR] AuthService: {"correlationId": 5286d312-f9a7-47b1-a9c8-89a91ad586bc, data: "jwt expired"}
+2025-05-24T03:44:01.845Z [ERROR] ErrorHandler: {"correlationId": a812dc60-b043-426f-8105-be077d96e46f, data: {"statusCode":403,"name":"AuthenticationError","message":"Invalid token","details":[]}}
+2025-05-24T03:44:58.508Z [ERROR] ErrorHandler: {"correlationId": 8baf2d52-e746-433d-884c-24acb2e2ca2e, data: {"statusCode":403,"name":"AuthenticationError","message":"Invalid token","details":[]}}

@@ -11,6 +11,7 @@ export interface CreateProductDTO {
 	description: string;
 	price: number;
 	categoryId: string;
+	ownerId?: string;
 }
 
 export interface ShowProductDTO {

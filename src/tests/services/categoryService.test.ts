@@ -106,9 +106,9 @@ describe("Suit tests - Category Service", () => {
 			mockCategoryRepository.delete.mockResolvedValue(mockCategory);
 			const service = new CategoryService(mockCategoryRepository, messagingServiceMock);
 
-			const result = await service.delete("mock-id");
+			await service.delete("mock-id", "mock-owner-id");
 
-			expect(mockCategory).toEqual(result);
+			expect(mockCategoryRepository.findById).toHaveBeenCalledWith("mock-id")
 			expect(mockCategoryRepository.delete).toHaveBeenCalled();
 		});
 
@@ -116,7 +116,9 @@ describe("Suit tests - Category Service", () => {
 			mockCategoryRepository.findById.mockResolvedValue(null);
 			const service = new CategoryService(mockCategoryRepository, messagingServiceMock);
 
-			await expect(service.delete("mock-id")).rejects.toThrow(NotFoundError);
+			await expect(service.delete("mock-id", "mock-owner-id")).rejects.toThrow(
+				NotFoundError,
+			);
 		});
 	});
 

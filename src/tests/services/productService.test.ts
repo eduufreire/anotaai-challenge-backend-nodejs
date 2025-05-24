@@ -138,19 +138,33 @@ describe("Suit testes - Product Service", () => {
 				...input,
 			};
 
-			const categoryService = new CategoryService(mockCategoryRepository, messagingServiceMock);
+			const categoryService = new CategoryService(
+				mockCategoryRepository,
+				messagingServiceMock,
+			);
 			jest.spyOn(mockProductRepository, "findById").mockResolvedValue(mockProduct);
 			jest.spyOn(mockProductRepository, "update").mockResolvedValue(mockProductUpdated);
 
-			const productService = new ProductService(mockProductRepository, categoryService, messagingServiceMock);
+			const productService = new ProductService(
+				mockProductRepository,
+				categoryService,
+				messagingServiceMock,
+			);
 
-			const result = await productService.update("mock-product-id", input);
+			const result = await productService.update(
+				"mock-product-id",
+				input,
+				"mock-owner-id",
+			);
 			expect(result).toEqual(mockProductUpdated);
 			expect(mockProductRepository.findById).toHaveBeenCalledTimes(1);
 		});
 
 		it("Should return success when updating category of a product", async () => {
-			const categoryService = new CategoryService(mockCategoryRepository, messagingServiceMock);
+			const categoryService = new CategoryService(
+				mockCategoryRepository,
+				messagingServiceMock,
+			);
 			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue({
 				...mockCategory,
 				id: "new-category-id",
@@ -161,22 +175,37 @@ describe("Suit testes - Product Service", () => {
 				categoryId: "new-category-id",
 			});
 
-			const productService = new ProductService(mockProductRepository, categoryService, messagingServiceMock);
-			const result = await productService.update("mock-product-id", {
-				categoryId: "new-category-id",
-			});
+			const productService = new ProductService(
+				mockProductRepository,
+				categoryService,
+				messagingServiceMock,
+			);
+			const result = await productService.update(
+				"mock-product-id",
+				{
+					categoryId: "new-category-id",
+				},
+				"mock-owner-id",
+			);
 			expect(result).toEqual({ ...mockProduct, categoryId: "new-category-id" });
 			expect(mockCategoryRepository.findById).toHaveBeenCalledWith("new-category-id");
 			expect(mockProductRepository.update).toHaveBeenCalledTimes(1);
 		});
 
 		it("Should throw NotFoundError when not found category by id", async () => {
-			const categoryService = new CategoryService(mockCategoryRepository, messagingServiceMock);
+			const categoryService = new CategoryService(
+				mockCategoryRepository,
+				messagingServiceMock,
+			);
 			jest.spyOn(mockCategoryRepository, "findById").mockResolvedValue(null);
 
-			const productService = new ProductService(mockProductRepository, categoryService, messagingServiceMock);
+			const productService = new ProductService(
+				mockProductRepository,
+				categoryService,
+				messagingServiceMock,
+			);
 			await expect(
-				productService.update("mock-product-id", { ...mockProduct }),
+				productService.update("mock-product-id", { ...mockProduct }, "mock-owner-id"),
 			).rejects.toThrow(NotFoundError);
 			expect(mockCategoryRepository.findById).toHaveBeenCalledWith("mock-category-id");
 		});
@@ -194,9 +223,9 @@ describe("Suit testes - Product Service", () => {
 				categoryService,
 				messagingServiceMock,
 			);
-			await expect(productService.delete("mock-product-id")).rejects.toThrow(
-				NotFoundError,
-			);
+			await expect(
+				productService.delete("mock-product-id", "mock-owner-id"),
+			).rejects.toThrow(NotFoundError);
 		});
 
 		it("Should return success when deleting product", async () => {
@@ -212,8 +241,7 @@ describe("Suit testes - Product Service", () => {
 				categoryService,
 				messagingServiceMock,
 			);
-			const result = await productService.delete("mock-product-id");
-			expect(result).toEqual(mockProduct);
+			await productService.delete("mock-product-id", "mock-owner-id");
 			expect(mockProductRepository.findById).toHaveBeenCalledWith("mock-product-id");
 			expect(mockProductRepository.delete).toHaveBeenCalledTimes(1);
 		});

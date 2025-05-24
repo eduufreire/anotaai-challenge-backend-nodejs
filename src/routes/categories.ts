@@ -1,19 +1,31 @@
+import { categoryController } from "@/config/dependencies";
+import { authMiddleware } from "@/utils/authMiddleware";
 import { NextFunction, Request, Response, Router } from "express";
-import container from "@/config/dependencyContainer";
 
 const routesCategory = Router();
-const controller: any = container.get("CategoryController");
 
-routesCategory.post("/", (request: Request, response: Response, next: NextFunction) => {
-	Promise.resolve(controller.post(request, response)).catch(e => next(e))
-});
+routesCategory.post(
+	"/",
+	authMiddleware,
+	(request: Request, response: Response, next: NextFunction) => {
+		Promise.resolve(categoryController.post(request, response)).catch((e) => next(e));
+	},
+);
 
-routesCategory.patch("/:id", (request: Request, response: Response, next: NextFunction) => {
-	Promise.resolve(controller.update(request, response)).catch(e => next(e))
-});
+routesCategory.patch(
+	"/:id",
+	authMiddleware,
+	(request: Request, response: Response, next: NextFunction) => {
+		Promise.resolve(categoryController.update(request, response)).catch((e) => next(e));
+	},
+);
 
-routesCategory.delete("/:id", (request: Request, response: Response, next: NextFunction) => {
-	Promise.resolve(controller.delete(request, response)).catch(e => next(e))
-});
+routesCategory.delete(
+	"/:id",
+	authMiddleware,
+	(request: Request, response: Response, next: NextFunction) => {
+		Promise.resolve(categoryController.delete(request, response)).catch((e) => next(e));
+	},
+);
 
 export default routesCategory;

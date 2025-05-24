@@ -2,14 +2,9 @@ import ProductService from "@/services/productService";
 import { ZodError } from "@/utils/exceptions/customException";
 import { createProductSchema, updateProductSchema } from "@/utils/validators/productValidator";
 import { Request, Response } from "express";
-import { inject, injectable } from "inversify";
 
-@injectable()
 export default class ProductController {
-	constructor(
-		@inject("ProductService")
-		private service: ProductService,
-	) {}
+	constructor(private service: ProductService) {}
 
 	async create(request: Request, response: Response) {
 		const schema = createProductSchema.safeParse(request.body);
@@ -25,20 +20,21 @@ export default class ProductController {
 
 	async update(request: Request, response: Response) {
 		const { id } = request.params;
+		const { ownerId } = request.body;
 		const schema = updateProductSchema.safeParse(request.body);
 
 		if (!schema.success) {
 			throw new ZodError("Invalid fields sending in the body", schema.error.issues);
 		}
 
-		const result = await this.service.update(id, schema.data);
+		const result = await this.service.update(id, schema.data, ownerId);
 		return response.status(202).json(result);
 	}
 
 	async delete(request: Request, response: Response) {
-        console.log(request.params)
 		const { id } = request.params;
-		await this.service.delete(id);
+		const { ownerId } = request.body;
+		await this.service.delete(id, ownerId);
 		return response.status(202).json();
 	}
 }

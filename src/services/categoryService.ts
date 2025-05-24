@@ -5,16 +5,12 @@ import {
 	CreateCategoryDTO,
 	UpdateCategoryDTO,
 } from "../interfaces/categories";
-import { injectable, inject } from "inversify";
 import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
 import { MessagingService } from "./sqsService";
 import "dotenv/config";
-@injectable()
 export default class CategoryService {
 	constructor(
-		@inject("CategoryRepository")
 		private repository: CategoryRepository,
-		@inject("MessagingService")
 		private messagingService: MessagingService,
 	) {}
 
@@ -65,13 +61,17 @@ export default class CategoryService {
 		return CategoryDTO.parse(updatedCategory);
 	}
 
-	async delete(id: string) {
+	async delete(id: string, ownerId: string) {
 		const categoryExists = await this.repository.findById(id);
 
 		if (!categoryExists) {
 			throw new NotFoundError("Category not found");
 		}
 
-		return await this.repository.delete(id);
+		await this.repository.delete(id);
+
+		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
+			owner: ownerId,
+		});
 	}
 }

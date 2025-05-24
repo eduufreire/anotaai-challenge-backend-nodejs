@@ -2,17 +2,12 @@ import { CreateProductDTO, ProductRepository, UpdateProductDTO } from "@/interfa
 import CategoryService from "@/services/categoryService";
 import ProductMapper from "@/utils/dtos/productDTO";
 import { ConflictError, NotFoundError } from "@/utils/exceptions/customException";
-import { inject, injectable } from "inversify";
 import { MessagingService } from "./sqsService";
 import "dotenv/config";
-@injectable()
 export default class ProductService {
 	constructor(
-		@inject("ProductRepository")
 		private repository: ProductRepository,
-		@inject("CategoryService")
 		private categoryService: CategoryService,
-		@inject("MessagingService")
 		private messagingService: MessagingService,
 	) {}
 
@@ -30,12 +25,12 @@ export default class ProductService {
 		const result = await this.repository.save(rawData);
 
 		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
-			owner: categoryExists.ownerId,
+			owner: rawData.ownerId,
 		});
 		return ProductMapper.parseToDTO(result);
 	}
 
-	async update(id: string, fieldsUpdate: UpdateProductDTO) {
+	async update(id: string, fieldsUpdate: UpdateProductDTO, ownerId: string) {
 		const productExists = await this.repository.findById(id);
 
 		if (!productExists) {
@@ -50,17 +45,20 @@ export default class ProductService {
 		if (!result) throw new ConflictError("Product not exists");
 
 		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
-			owner: "12345",
+			owner: ownerId,
 		});
 
 		return ProductMapper.parseToDTO(result);
 	}
 
-	async delete(id: string) {
+	async delete(id: string, ownerId: string) {
 		const productExists = await this.repository.findById(id);
 		if (!productExists) {
 			throw new NotFoundError("Product not found");
 		}
-		return await this.repository.delete(id);
+		await this.repository.delete(id);
+		await this.messagingService.sendMessage(process.env.EMITTER_QUEUE_URL, {
+			owner: ownerId,
+		});
 	}
 }

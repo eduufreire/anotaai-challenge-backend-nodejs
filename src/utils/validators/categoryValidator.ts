@@ -9,4 +9,5 @@ export const createCategorySchema = z.object({
 export const updateCategorySchema = z.object({
 	title: z.optional(z.string().max(40)),
 	description: z.optional(z.string().max(60)),
+	ownerId: z.string(),
 });

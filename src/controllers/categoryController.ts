@@ -37,8 +37,9 @@ export default class CategoryController {
 
 	async delete(request: Request, response: Response) {
 		const { id } = request.params;
+		const { ownerId } = request.body;
 
-		await this.categoryService.delete(id);
+		await this.categoryService.delete(id, ownerId);
 
 		return response.status(202).json();
 	}

@@ -5,6 +5,7 @@ export const createProductSchema = z.object({
 	description: z.string().max(100),
 	price: z.number().positive(),
 	categoryId: z.string(),
+	ownerId: z.string(),
 });
 
 export const updateProductSchema = z.object({
@@ -12,4 +13,5 @@ export const updateProductSchema = z.object({
 	description: z.optional(z.string().max(100)),
 	price: z.optional(z.number().positive()),
 	categoryId: z.optional(z.string()),
+	ownerId: z.string(),
 });
