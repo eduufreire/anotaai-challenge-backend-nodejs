@@ -1,0 +1,263 @@
+type: collection.insomnia.rest/5.0
+name: anotaai-resources
+meta:
+  id: wrk_f456ccaf016d446eb9aa18a0253b4341
+  created: 1745037052897
+  modified: 1745037052897
+collection:
+  - name: products
+    meta:
+      id: fld_82dc8c14123145a2a824eb01f5e965f9
+      created: 1746834777375
+      modified: 1748134664123
+      sortKey: -1746834777375
+    children:
+      - url: http://localhost:9999/products
+        name: create
+        meta:
+          id: req_1f3b3bba2702450fb5bf992df89c5ffd
+          created: 1746834780936
+          modified: 1748134821958
+          isPrivate: false
+          sortKey: -1746834785814
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "Frango com cheddar 3",
+            	"description": "melhor do mercado",
+            	"price": 12.00,
+            	"categoryId": "68326a06d3017690c620aedc"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_ddde0523f4d04792897e1122350640e2
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_dd66302446e34b62a762f954481f7aa6
+          - id: pair_802f382e218d43a69361fb9ccea9259b
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiZTYzMTU0MDEtYjdkNC00OWUwLTkyMjAtODdjZjMxNmVjYmZiIiwiaWF0IjoxNzQ4MTM0Mzg2LCJleHAiOjE3NDgxMzQ5ODZ9.vyTHmUykWOS1aW__xloYSMp2FNzmIXxCJ2ksZtyUnzo
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:9999/products/681e9bf4d1766b700bdbaa90
+        name: update
+        meta:
+          id: req_10829b54e168403880089f5d0e92d477
+          created: 1746845084296
+          modified: 1746845418063
+          isPrivate: false
+          sortKey: -1745935922347
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "Dolly Guarana",
+            	"description": "O melior",
+            	"categoryId": "6817f4e4500e707fef8cd8cb"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:9999/products/68314f4e9c10fb32d56e4043
+        name: delete
+        meta:
+          id: req_a082565fad3a4175ba8ba38ce1dd5546
+          created: 1746847605628
+          modified: 1748062520385
+          isPrivate: false
+          sortKey: -1746385354080.5
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_6569532bc0014e23a170858904d13929
+          - id: pair_5129819a346f4a3dba0aedd49f953759
+            name: Authorization
+            value: "Bearer "
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: categories
+    meta:
+      id: fld_f5c9c0fca8454128949479f4e8385c96
+      created: 1748134832022
+      modified: 1748134832022
+      sortKey: -1748134832022
+    children:
+      - url: http://localhost:9999/categories/
+        name: create
+        meta:
+          id: req_11125165549949da857320ac5ec15a35
+          created: 1745037058780
+          modified: 1748134874015
+          isPrivate: false
+          sortKey: -1748134840587
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "Pizzas",
+            	"description": "Pizzas"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_849ae67439534b5a8ef905b0d5db21dd
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_406d3e9abf48416189ae55c861f82477
+          - id: pair_b4b2ddff5d0c4981a94f54586fa4b15d
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiZTYzMTU0MDEtYjdkNC00OWUwLTkyMjAtODdjZjMxNmVjYmZiIiwiaWF0IjoxNzQ4MTM0Mzg2LCJleHAiOjE3NDgxMzQ5ODZ9.vyTHmUykWOS1aW__xloYSMp2FNzmIXxCJ2ksZtyUnzo
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:9999/categories/68313855e166949fd880683f
+        name: delete
+        meta:
+          id: req_d81eca2f7f8a40dc9e12336b4081ac0b
+          created: 1746149555907
+          modified: 1748134885681
+          isPrivate: false
+          sortKey: -1748134840387
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_d6e0dbc260ec407fb92080e4301a40e7
+          - id: pair_9bc2794beb914bc48a320565449ad7dc
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiZTYzMTU0MDEtYjdkNC00OWUwLTkyMjAtODdjZjMxNmVjYmZiIiwiaWF0IjoxNzQ4MDU2OTE0LCJleHAiOjE3NDgwNTcyMTR9.FSnWJRiAzxuS2alJzv8vMSP0leEv74kzGgGRP5SBfX8
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:9999/categories/682be49cd906a0bc5d600f51
+        name: update
+        meta:
+          id: req_0975aceb7c6f473892686b70d078cc3d
+          created: 1746235814550
+          modified: 1748134880617
+          isPrivate: false
+          sortKey: -1748134840487
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "Atualizado",
+            	"description": "Descrição atualizada"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_7600fe0627624155a8dfa409d4954a3e
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_e348a780fa6b44c89f5221cdc3dae422
+          - id: pair_e927050860984867a83c39fd8ccda43b
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiZTYzMTU0MDEtYjdkNC00OWUwLTkyMjAtODdjZjMxNmVjYmZiIiwiaWF0IjoxNzQ4MDU3MTA1LCJleHAiOjE3NDgwNTc3MDV9.jAJlu2MkHlArkKHPbpsks1IL1_a2A2N6WQ_AFoBD1eg
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - url: http://localhost:9999/login/
+    name: authentication
+    meta:
+      id: req_f64b974db7a340ecb2fb6a4438300100
+      created: 1747712121745
+      modified: 1748134867022
+      isPrivate: false
+      sortKey: -1748134832122
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "user1@gmail",
+        	"password": "123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.1.0
+    scripts:
+      afterResponse: |+
+        const jsonBody = insomnia.response.json();
+        insomnia.environment.set("token_jwt", jsonBody.token)
+
+
+
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_dec717251de87c4d5714418a320f4522bb3f8d22
+    created: 1745037052904
+    modified: 1748134386542
+environments:
+  name: Base Environment
+  meta:
+    id: env_dec717251de87c4d5714418a320f4522bb3f8d22
+    created: 1745037052900
+    modified: 1748134386545
+    isPrivate: false
+  data:
+    token_jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiZTYzMTU0MDEtYjdkNC00OWUwLTkyMjAtODdjZjMxNmVjYmZiIiwiaWF0IjoxNzQ4MTM0Mzg2LCJleHAiOjE3NDgxMzQ5ODZ9.vyTHmUykWOS1aW__xloYSMp2FNzmIXxCJ2ksZtyUnzo
