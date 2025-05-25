@@ -11,6 +11,14 @@ services:
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+  
+  cloud-resources:
+    container_name: "cloud-resources"
+    depends_on:
+      - localstack
+    build:
+      context: ./cloud-resources
+      dockerfile: Dockerfile
 
   mongo:
     container_name: "catalog-database-anotaai"
@@ -32,4 +40,30 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: urubu100
       ME_CONFIG_MONGODB_URL: mongodb://root:urubu100@mongo:27017/
       ME_CONFIG_BASICAUTH: false
+  
+  catalog-api:
+    container_name: "catalog-api-rest"
+    depends_on:
+      - cloud-resources
+    build:
+      context: ./catalog-api
+      dockerfile: Dockerfile
+    ports:
+      - "9999:9999"
+    environment:
+      - DATABASE_URL=mongodb://root:urubu100@mongo:27017/catalogos?authSource=admin
+      - EMITTER_QUEUE_URL="https://localhost.localstack.cloud:4566/000000000000/catalog-emit-topic"
+      - SECRET_KEY_TOKENS="challenge-api-anotaai"
+  
+  catalog-consumer:
+    container_name: "catalog-consumer-queue"
+    depends_on:
+      - cloud-resources
+    build:
+      context: ./catalog-consumer
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=mongodb://root:urubu100@mongo:27017/catalogos?authSource=admin
+      - QUEUE_URL="https://localhost.localstack.cloud:4566/000000000000/catalog-emit-topic"
+
   
