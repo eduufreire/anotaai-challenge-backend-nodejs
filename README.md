@@ -60,7 +60,7 @@ Acesse o Mongo Express para verificar as inserções:
 Acesse o Localstack para verificar os arquivos gerados no S3:
 [dashborad](https://app.localstack.cloud/inst/default/status)
 
-Importe a [collection](https://github.com/eduufreire/anotaai-challenge-backend-nodejs/blob/develop/collection-api.yamlink) no Postman ou Insomnia para testar os endpoits
+Importe a [collection](https://github.com/eduufreire/anotaai-challenge-backend-nodejs/blob/develop/collection-api.yaml) no Postman ou Insomnia para testar os endpoits
 
 
 ## Documentação da API
